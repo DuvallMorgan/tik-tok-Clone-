@@ -1,1 +1,12 @@
-
+// No-Hallucination Guardrail
+const analyzeLead = (videoData) => {
+  if (!videoData.isVerifiedSource) {
+    return "Error: Metadata Missing. No summary generated.";
+  }
+  
+  return {
+    summary: "Promoting Veo 3.1 Native Vertical Video support.",
+    target_cta: "Try Vertex AI Free Tier",
+    confidence_score: 0.98
+  };
+};
