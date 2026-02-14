@@ -1,0 +1,25 @@
+// Core TikTok Feed Component
+export const VideoFeed = ({ leads }) => {
+  return (
+    <main className="h-screen w-full overflow-y-scroll snap-y snap-mandatory bg-black">
+      {leads.map((lead) => (
+        <section key={lead.id} className="h-screen w-full snap-start relative">
+          <VideoPlayer url={lead.videoUrl} />
+          
+          {/* AI Lead Triage Overlay */}
+          <div className="absolute bottom-20 left-4 z-10 text-white">
+            <h3 className="font-bold text-lg">@{lead.username}</h3>
+            <p className="text-sm opacity-80">{lead.aiSummary}</p>
+          </div>
+          
+          {/* Right Side Interaction Bar */}
+          <div className="absolute right-4 bottom-32 flex flex-col gap-6">
+            <InteractionButton icon="Heart" label={lead.likes} />
+            <InteractionButton icon="Message" label={lead.comments} />
+            <InteractionButton icon="Creep" mode="toggle" /> 
+          </div>
+        </section>
+      ))}
+    </main>
+  );
+};
