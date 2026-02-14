@@ -1,0 +1,39 @@
+import { Canvas, useFrame } from '@react-three/fiber'
+import { useRef, useState } from 'react'
+import * as THREE from 'three'
+
+function VideoPanel({ url, position }) {
+  const mesh = useRef()
+  const [video] = useState(() => {
+    const vid = document.createElement("video");
+    vid.src = url;
+    vid.crossOrigin = "Anonymous";
+    vid.loop = true;
+    vid.muted = true;
+    vid.play();
+    return vid;
+  });
+
+  useFrame((state) => {
+    // Subtle 3D tilt based on mouse position
+    mesh.current.rotation.y = THREE.MathUtils.lerp(mesh.current.rotation.y, (state.mouse.x * Math.PI) / 10, 0.1)
+    mesh.current.rotation.x = THREE.MathUtils.lerp(mesh.current.rotation.x, (state.mouse.y * Math.PI) / 15, 0.1)
+  })
+
+  return (
+    <mesh ref={mesh} position={position}>
+      <planeGeometry args={[9, 16]} />
+      <meshBasicMaterial>
+        <videoTexture attach="map" args={[video]} />
+      </meshBasicMaterial>
+    </mesh>
+  )
+}
+
+export const Hero3D = () => (
+  <div className="h-screen w-full bg-black">
+    <Canvas camera={{ position: [0, 0, 20] }}>
+      <VideoPanel url="/cloud-ad.mp4" position={[0, 0, 0]} />
+    </Canvas>
+  </div>
+)
