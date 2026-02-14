@@ -1,0 +1,12 @@
+<div className="h-screen overflow-y-scroll snap-y snap-mandatory">
+  {isLoading ? (
+    <div className="h-screen snap-start bg-gray-900 animate-pulse flex items-end p-8">
+      <div className="space-y-4 w-3/4">
+        <div className="h-4 bg-gray-700 rounded w-1/2"></div>
+        <div className="h-4 bg-gray-700 rounded w-full"></div>
+      </div>
+    </div>
+  ) : (
+    <VideoComponent />
+  )}
+</div>
