@@ -1,0 +1,9 @@
+// Recommendation Engine Logic
+const getGroundedRec = async (userHistory) => {
+  const rawRec = await gemini.generate(`Suggest next video based on: ${userHistory}`);
+  
+  // Verify with the Brain before displaying to the Face
+  const isReal = await supabase.rpc('verify_video_exists', { vid: rawRec.id });
+  
+  return isReal ? rawRec : fallbackVideo; // Zero hallucinations allowed.
+}
