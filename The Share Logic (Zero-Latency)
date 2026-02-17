@@ -1,0 +1,31 @@
+export const ShareService = {
+  // Tier 1: OS Native Share (Fastest)
+  handleNativeShare: async (data) => {
+    if (navigator.share) {
+      try {
+        await navigator.share(data);
+        return true;
+      } catch (err) {
+        console.log("User cancelled or share failed");
+      }
+    }
+    return false; // Fallback to custom menu
+  },
+
+  // Tier 2: Stateless URL Generators
+  getShareUrl: (platform, url, text) => {
+    const encodedUrl = encodeURIComponent(url);
+    const encodedText = encodeURIComponent(text);
+    
+    const platforms = {
+      whatsapp: `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`,
+      x: `https://x.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+      reddit: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedText}`,
+      email: `mailto:?subject=${encodedText}&body=${encodedUrl}`
+    };
+    return platforms[platform];
+  }
+};
