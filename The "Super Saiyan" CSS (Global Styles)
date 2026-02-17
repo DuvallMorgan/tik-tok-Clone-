@@ -1,0 +1,26 @@
+@keyframes goku-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-ssj {
+  background: linear-gradient(
+    90deg, 
+    rgba(15, 15, 15, 1) 25%, 
+    rgba(40, 40, 40, 1) 50%, 
+    rgba(15, 15, 15, 1) 75%
+  );
+  background-size: 200% 100%;
+  animation: goku-shimmer 1.2s infinite linear;
+  border-radius: 8px;
+}
+
+/* Add a subtle cyan pulse for that Japan 2000s tech vibe */
+.skeleton-pulse-aura {
+  box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+  border: 1px solid rgba(0, 242, 255, 0.05);
+}
