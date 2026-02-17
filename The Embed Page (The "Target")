@@ -1,0 +1,9 @@
+// app/embed/[id]/page.tsx
+export default function EmbedPage({ params }) {
+  return (
+    <div className="h-screen w-screen bg-black flex items-center justify-center">
+      {/* We use our Mux "Vault" logic here for lag-free streaming */}
+      <VideoVault playbackId={params.id} /> 
+    </div>
+  );
+}
