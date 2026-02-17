@@ -1,0 +1,16 @@
+// app/feed/page.tsx
+import { Suspense } from 'react';
+import { SkeletonFeed, ActualVideoFeed } from '@/components';
+
+export default function FeedPage() {
+  return (
+    <main className="h-screen bg-black overflow-hidden">
+      {/* The Skeleton is served IMMEDIATELY (0-100ms).
+        The ActualVideoFeed streams in as the Mux segments arrive.
+      */}
+      <Suspense fallback={<SkeletonFeed />}>
+        <ActualVideoFeed />
+      </Suspense>
+    </main>
+  );
+}
