@@ -1,0 +1,2 @@
+# Cloud-based FFmpeg Command (The Secret Sauce)
+ffmpeg -i input.mp4 -vf "drawtext=text='TITAN_TOK_SYSTEM':x=10:y=10:fontsize=24:fontcolor=cyan@0.5, curves=preset=vintage" -c:a copy output.mp4
