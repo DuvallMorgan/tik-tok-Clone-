@@ -1,0 +1,11 @@
+// The "Brain" (Supabase) Call
+const fetchVideoAddress = async (videoId) => {
+  const { data, error } = await supabase
+    .from('leads_content')
+    .select('mux_playback_id, ai_lead_score')
+    .eq('id', videoId)
+    .single();
+
+  if (error) throw new Error("Brain couldn't find the address.");
+  return data; // Returns the secret 'address' to call the Vault
+};
