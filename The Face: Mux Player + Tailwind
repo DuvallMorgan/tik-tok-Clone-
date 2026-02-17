@@ -1,0 +1,22 @@
+import MuxPlayer from "@mux/mux-player-react";
+
+export const VideoVault = ({ playbackId, metadata }) => {
+  return (
+    <div className="relative group rounded-xl overflow-hidden shadow-2xl border border-white/5">
+      <MuxPlayer
+        playbackId={playbackId}
+        metadata={{ video_title: metadata.title }}
+        streamType="on-demand"
+        primaryColor="#8B5CF6" // Purple for that "Sick" 3D look
+        className="aspect-[9/16] w-full"
+      />
+      
+      {/* AI Recommendation Overlay (The Intelligence) */}
+      <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md p-2 rounded-lg border border-purple-500/50">
+        <p className="text-[10px] uppercase tracking-widest text-purple-400 font-bold">
+          Gemini Lead Score: {metadata.aiScore}%
+        </p>
+      </div>
+    </div>
+  );
+};
