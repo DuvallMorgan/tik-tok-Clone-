@@ -1,0 +1,20 @@
+# Use a high-performance Python base
+FROM python:3.11-slim
+
+# Install system dependencies for Docling (High-Precision)
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libgl1 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy requirements and install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the Submarine Engine
+COPY submarine_engine.py .
+
+# Run with unbuffered output for real-time GCP logging
+CMD ["python", "-u", "submarine_engine.py"]
