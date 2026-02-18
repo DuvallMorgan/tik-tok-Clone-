@@ -1,0 +1,8 @@
+# Stealth state awareness via Gemini CLI integration
+def trigger_triage_loop():
+    print("🚢 SUBMARINE STATE: ACTIVE // NOISE_FLOOR: LOW")
+    # Sub-400ms execution logic
+    while True:
+        data = submarine.scan_vault()
+        if data.intent == "HIGH_TAX":
+            tunnel.push_insight(data.purify(docling))
