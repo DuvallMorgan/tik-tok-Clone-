@@ -1,0 +1,16 @@
+// The "Show" Component
+export const DataPulseOverlay = ({ isCleaning, insight }) => (
+  <div className="absolute top-20 left-4 z-50 font-mono text-[10px]">
+    {isCleaning && (
+      <div className="text-cyan-400 animate-pulse">
+        [DOCLING_SCANNING]: STRIPPING_NOISE... ⚡
+      </div>
+    )}
+    {insight && (
+      <div className="mt-2 p-2 bg-black/80 border-l-2 border-cyan-500 text-white">
+        <p className="text-cyan-300 font-bold uppercase">Grounded Insight:</p>
+        <p className="opacity-80">{insight}</p>
+      </div>
+    )}
+  </div>
+);
