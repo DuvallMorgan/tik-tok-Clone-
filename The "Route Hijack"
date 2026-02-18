@@ -1,0 +1,21 @@
+// Inside your TikTokLiveRoom component (The Face)
+const LiveInsight = ({ sessionId }) => {
+  const [insight, setInsight] = useState("Scanning...");
+
+  useEffect(() => {
+    // Subscribe to the "Brain" update via the Tunnel
+    const channel = supabase
+      .channel('live_updates')
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'live_sessions' }, 
+      payload => {
+        if (payload.new.status === "GOKU_READY") {
+          setInsight(payload.new.ai_summary); // Instant update!
+        }
+      })
+      .subscribe();
+
+    return () => supabase.removeChannel(channel);
+  }, [sessionId]);
+
+  return <div className="y2k-glow-text">{insight}</div>;
+};
