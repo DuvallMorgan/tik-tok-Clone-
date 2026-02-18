@@ -1,0 +1,49 @@
+import os
+from langchain_openai import ChatOpenAI
+from langchain_community.vectorstores import SupabaseVectorStore
+from supabase.client import create_client
+from docling.document_converter import DocumentConverter
+
+# Singapore High-Precision Config
+supabase_url = os.environ.get("SUPABASE_URL")
+supabase_key = os.environ.get("SUPABASE_SERVICE_KEY")
+supabase = create_client(supabase_url, supabase_key)
+
+class TitanSubmarine:
+    def __init__(self):
+        self.converter = DocumentConverter()
+        self.llm = ChatOpenAI(model="gpt-4o", temperature=0) # Stealth Intelligence
+
+    def monitor_live_status(self):
+        """Infinite loop to sync DuvallMorgan Clone sessions with Supabase"""
+        print("🚢 Submarine submerged. Monitoring 24/7...")
+        
+        # Real-time listener for "Live" status changes
+        while True:
+            # Querying for active leads that haven't been 'cleaned' by Docling yet
+            leads = supabase.table("live_sessions").select("*").eq("is_cleaned", False).execute()
+            
+            for lead in leads.data:
+                self.process_lead_stealth(lead)
+
+    def process_lead_stealth(self, lead):
+        """The 'Silent' cleaning and triage process"""
+        print(f"🕵️ Analyzing Lead: {lead['id']}...")
+        
+        # 1. Docling Strips the Noise (Singapore Precision)
+        clean_markdown = self.converter.convert_asset(lead['raw_metadata']).document.export_to_markdown()
+        
+        # 2. LangChain Triage (No-Hallucination Brain)
+        prompt = f"Extract only technical lead intent from this clean data: {clean_markdown}"
+        intent_summary = self.llm.invoke(prompt).content
+        
+        # 3. Update the Brain (The Data Tunnel)
+        supabase.table("live_sessions").update({
+            "ai_summary": intent_summary,
+            "is_cleaned": True,
+            "status": "GOKU_READY"
+        }).eq("id", lead["id"]).execute()
+
+if __name__ == "__main__":
+    sub = TitanSubmarine()
+    sub.monitor_live_status()
