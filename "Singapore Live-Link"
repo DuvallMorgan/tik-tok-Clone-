@@ -1,0 +1,15 @@
+// The "Tunnel" Logic (Next.js + Supabase Realtime)
+export const useDataTunnel = (videoId) => {
+  useEffect(() => {
+    // Open the Tunnel
+    const tunnel = supabase
+      .channel(`video_insight_${videoId}`)
+      .on('broadcast', { event: 'ai_update' }, (payload) => {
+        // As Gemini thinks, it streams "Brain" insights back to the "Face"
+        updateUISmoothly(payload.new_data);
+      })
+      .subscribe();
+
+    return () => tunnel.unsubscribe();
+  }, [videoId]);
+};
