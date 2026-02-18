@@ -1,0 +1,10 @@
+# The "Cleaner" (Python-based Edge Function)
+from docling.document_converter import DocumentConverter
+
+def clean_tiktok_data(raw_html):
+    # Docling strips the noise (CSS, JS, Tracking scripts)
+    converter = DocumentConverter()
+    result = converter.convert_asset(raw_html)
+    
+    # We only send the clean Markdown to Gemini
+    return result.document.export_to_markdown()
