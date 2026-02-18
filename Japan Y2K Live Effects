@@ -1,0 +1,10 @@
+// The "Goku Power-Up" Gift Logic
+const triggerEnergyPulse = (giftType) => {
+  if (giftType === 'SSJ_FIRE') {
+    // 400ms CSS trigger for the Doherty Threshold
+    document.getElementById('live-aura').classList.add('animate-ssj-pulse');
+    setTimeout(() => {
+      document.getElementById('live-aura').classList.remove('animate-ssj-pulse');
+    }, 1000);
+  }
+};
